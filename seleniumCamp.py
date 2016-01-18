@@ -3,13 +3,21 @@
 from selenium import webdriver
 import os
 
-# use webdriver for camp site
+# use webdriver for camp website
 
 driver = webdriver.Firefox()
 driver.get("http://www.parkstay.vic.gov.au/great-otway-national-park-west-kennett-river-to-princetown")
 
 # change date
 
+def change_date(new_date):
+    driver.find_element_by_class_name("pseudo").click()
+    date_picker = driver.find_element_by_class_name("wdDatePicker_calendar")
+    rows = date_picker.find_element_by_tag_name("tr")
+    columns = date_picker.find_element_by_tag_name("td")
+    for cell in columns:
+        if cell.text == "20":
+            cell.click()
 
 # check if site booked
 
@@ -23,5 +31,5 @@ def check_if_booked(site):
         elif child.get_attribute("class") == "price":
             return False
 
-print(check_if_booked("Blanket Bay Campground site 01"))
-print(check_if_booked("Aire River East Campground site 03"))
+
+change_date("none")
